@@ -4,7 +4,7 @@ Security audit and hardening skill for OpenClaw installations, covering network 
 
 ## What It Does
 
-`claw-doctor` is a Codex skill that inspects a local or self-hosted OpenClaw installation and produces a prioritized hardening report.
+`claw-doctor` is an OpenClaw skill bundle that inspects a local or self-hosted OpenClaw installation and produces a prioritized hardening report.
 
 It combines:
 
@@ -35,39 +35,59 @@ It combines:
 ```text
 claw-doctor/
   SKILL.md
-  agents/openai.yaml
   references/remediation-matrix.md
   scripts/audit_openclaw_host.py
 ```
 
 ## Install
 
-Copy the `claw-doctor` folder into your Codex skills directory:
+### Local install
+
+Copy the `claw-doctor` folder into your OpenClaw skills directory:
 
 ```bash
-cp -R claw-doctor "$CODEX_HOME/skills/"
+cp -R claw-doctor ~/.openclaw/skills/
 ```
 
-Or symlink it during development:
+Or place it in a workspace-specific `skills/` directory:
 
 ```bash
-ln -s "$(pwd)/claw-doctor" "$CODEX_HOME/skills/claw-doctor"
+mkdir -p ./skills
+cp -R claw-doctor ./skills/
+```
+
+OpenClaw picks up skills from `~/.openclaw/skills` and `<workspace>/skills`.
+
+### ClawHub install
+
+After publishing to ClawHub, users can install it with:
+
+```bash
+clawhub install claw-doctor
+```
+
+## Publish
+
+Publish this skill bundle to ClawHub:
+
+```bash
+clawhub publish ./claw-doctor --slug claw-doctor --name "Claw Doctor" --version 0.1.0 --tags latest
 ```
 
 ## Use
 
-From Codex, invoke the skill by name or ask for an OpenClaw security review.
+From OpenClaw, invoke the skill by name or ask for an OpenClaw security review.
 
 You can also run the bundled audit script directly:
 
 ```bash
-./claw-doctor/scripts/audit_openclaw_host.py
+python3 ./claw-doctor/scripts/audit_openclaw_host.py
 ```
 
 JSON output:
 
 ```bash
-./claw-doctor/scripts/audit_openclaw_host.py --format json
+python3 ./claw-doctor/scripts/audit_openclaw_host.py --format json
 ```
 
 ## Output

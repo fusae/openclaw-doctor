@@ -1,4 +1,0 @@
-interface:
-  display_name: "Claw Doctor"
-  short_description: "Audit local OpenClaw security posture"
-  default_prompt: "Use $claw-doctor to inspect this machine for OpenClaw security risks and recommend concrete hardening steps."
